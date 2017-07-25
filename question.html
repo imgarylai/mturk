@@ -1,0 +1,74 @@
+<div class="question">
+    {% for email in thread["emails"] %}
+        <label>Please label each mention in this email:</label>
+        <p>
+            <strong>Sender:</strong> {{ email["From"] }}
+        </p>
+        <p>
+            <strong>Receiver(s) (multiple receivers are separated by semicolon ";"):</strong>
+            {% for receiver in email["receivers"] %}
+                {{ receiver }};
+            {% endfor %}
+        </p>
+        <p>
+            <strong>Body:</strong>
+        </p>
+        <div class="col-xs-12 entities">
+            {% set counter = [] %}
+            {% set ent_list = []%}
+            {% for ent in email["ents"] %}
+                {% if ent[1] == True or ent[2] == "PERSON" or ent[2] == "ORG"%}
+                    {% if counter.append("1") %}{% endif %}
+                    {% set l = counter|length|string %}
+                    {% set name = ent[0] + " " + l %}
+                    {% if ent_list.append(name) %}{% endif %}
+                    <mark data-entity="org">{{ ent[0] }} <sub>{{ l }}</sub></mark>
+                {% else %}
+                    {{ ent[0]|e }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-xs-12">
+            {% set mentions = []%}
+            {% for ent in ent_list %}
+                {% set outer_loop = loop %}
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <label>{{ ent }}</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <select id="question_{{ loop.index }}" name="question_{{ loop.index }}" class="form-control input-xs">
+                            <option selected="selected" value="n_{{ outer_loop.index }}_0">N/A</option>
+                            <optgroup label="Sender">
+                                <option id="s_{{ outer_loop.index }}_1" value="s_{{ outer_loop.index }}_1">{{ email["From"] }}</option>
+                            </optgroup>
+                            <optgroup label="Receiver">
+                                {% if email["receivers"] |length > 1%}
+                                    <option id="r_{{ outer_loop.index }}_0"
+                                            value="r_{{ outer_loop.index }}_0">
+                                        All receivers
+                                    </option>
+                                {% endif %}
+                                {% for receiver in email["receivers"] %}
+                                    <option id="r_{{ outer_loop.index }}_{{loop.index}}"
+                                            value="r_{{ outer_loop.index }}_{{loop.index}}">
+                                        {{ receiver }}
+                                    </option>
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Mention">
+                                {% for mention in mentions %}
+                                    <option id="m_{{ outer_loop.index }}_{{loop.index}}"
+                                            value="m_{{ outer_loop.index }}_{{loop.index}}">
+                                        {{ mention }}
+                                    </option>
+                                {% endfor %}
+                            </optgroup>
+                            {% if mentions.append(ent) %}{% endif %}
+                        </select>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
