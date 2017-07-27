@@ -7,7 +7,7 @@ with open("email.threads.strict.only.ents.json") as f:
 
 
 def cal_reward(l):
-    read_instruction = 1.0
+    read_instruction = 0.5
     word_count = l * 1 / 30.0
     return round((read_instruction + word_count) / 60.0 * 6.0, 3)
 
@@ -40,6 +40,7 @@ if __name__ == '__main__':
 
         with open(file, 'w') as out:
             ujson.dump(tmp, out, indent=2)
+
     with open("{0}/dir.csv".format(prefix), "w") as f:
         writer = csv.writer(f)
         writer.writerow(dir_list)
