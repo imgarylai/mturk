@@ -26,7 +26,7 @@ def html_question(thread):
 
 
 if __name__ == '__main__':
-    with open('0.4.json') as inf:
+    with open('classified/0.4.json') as inf:
         data = ujson.load(inf)
 
     # max_col_nums = max(
