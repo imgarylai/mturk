@@ -42,9 +42,9 @@
                 </div>
                 <div class="col-xs-10">
                     <select id="q_{{ email_loop.index }}_{{ loop.index }}" name="q_{{ email_loop.index }}_{{ loop.index }}" class="form-control input-xs">
-                        <option selected value="n_{{ outer_loop.index }}_0">N/A</option>
+                        <option selected value="n_0">N/A</option>
                         <optgroup label="Sender">
-                            <option id="s" value="s_{{ loop.index }}">{{ email["From"] }}</option>
+                            <option id="s_0" value="s_0">{{ email["From"] }}</option>
                         </optgroup>
                         <optgroup label="Receiver">
                             {% if email["receivers"] |length > 1%}
@@ -53,7 +53,7 @@
                                 </option>
                             {% endif %}
                             {% for receiver in email["receivers"] %}
-                                <option id="r_{{ loop.index + 1}}" value="r_{{ loop.index }}">
+                                <option id="r_{{ loop.index }}" value="r_{{ loop.index }}">
                                     {{ receiver }}
                                 </option>
                             {% endfor %}
