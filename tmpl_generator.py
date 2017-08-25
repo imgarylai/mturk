@@ -26,7 +26,8 @@ def html_question(thread):
 
 if __name__ == '__main__':
 
-    with open('classified/dir.csv', 'r') as f:
+    version = 2
+    with open('classified/v{0}/dir.csv'.format(version), 'r') as f:
         reader = csv.reader(f)
         dir_list = list(reader)
 
