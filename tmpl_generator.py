@@ -5,11 +5,13 @@ import htmlmin
 import os.path
 import csv
 
+
 def render(tpl_path, thread):
     path, filename = os.path.split(tpl_path)
     return jinja2.Environment(
         loader=jinja2.FileSystemLoader(path or './')
     ).get_template(filename).render(thread=thread)
+
 
 def html_question(thread):
     for email in thread['emails']:

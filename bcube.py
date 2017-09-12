@@ -64,9 +64,10 @@ if __name__ == '__main__':
     fscore = 0
     fscore_count = 0
 
-    for file in [0.1, 0.2, 0.3, 0.4]:
+    version = 2
+    for file in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2]:
 
-        prefix = 'classified/{0}/{0}'.format(file)
+        prefix = 'classified/v{0}/{1}/{1}'.format(version, file)
 
         with open('{}.json'.format(prefix)) as f:
             data = ujson.load(f)

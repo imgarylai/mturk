@@ -2,7 +2,10 @@ import ujson
 import csv
 import os.path
 
-with open("classified/v2/email.threads.strict.only.ents.json") as f:
+version = "3"
+json_path = "classified/v{0}/email.threads.strict.only.ents.json".format(version)
+
+with open(json_path) as f:
     data = ujson.load(f)
 
 
@@ -19,7 +22,6 @@ def one_five_round(x):
 if __name__ == '__main__':
     dir_list = []
     prefix = 'classified'
-    version = 2
     for thread in data:
         file_name = str(one_five_round(cal_reward(sum(list(map(lambda email: len(email['ents']), thread['emails']))))))
         dir = "{0}/v{1}/{2}".format(prefix, version, file_name)
